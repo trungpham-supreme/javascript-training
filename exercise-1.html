@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>About Me</h1>
+
+    <ul>
+      <li>Nickname: <span id="nickname"></span></li>
+      <li>Favorites: <span id="favorites"></span></li>
+      <li>Hometown: <span id="hometown"></span></li>
+    </ul>
+
+    <script>
+      document.body.style.fontFamily = 'Arial, sans-serif';
+
+      document.getElementById("nickname").textContent = "Icon"
+      document.getElementById("favorites").textContent = "Unknow"
+      document.getElementById("hometown").textContent = "Viet Nam"
+
+      const infoUser = document.getElementsByTagName('li');
+      for(let i = 0; i < infoUser.length; i++){
+        infoUser[i].classList.add("listitem");
+        infoUser[i].style.color = 'red';
+      }
+
+      const image = document.createElement('img');
+      image.setAttribute('src', 'https://www.jquery-az.com/html/images/banana.jpg');
+      document.body.appendChild(image);
+    </script>
+  </body>
+</html>
