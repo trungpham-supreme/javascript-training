@@ -19,8 +19,11 @@ function fetchData() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
       const data = { message: "Hi" };
-      resolve(data);
-      reject(new Error("Error"));
+      if (data) {
+        resolve(data);
+      } else {
+        reject(new Error("Error"));
+      }
     }, 500);
   });
 }
@@ -33,5 +36,5 @@ fetchData()
     console.log(data);
   })
   .catch((err) => {
-    console.error("Error:", err);
+    console.error(err);
   });
