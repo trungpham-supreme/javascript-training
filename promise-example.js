@@ -6,11 +6,11 @@
 
 // example 1
 const sayHi = new Promise((resolve, reject) => {
-  const data = "Hi";
+  const data = 'Hi';
   if (data) {
     resolve(console.log(data));
   } else {
-    reject(console.log("Error"));
+    reject(console.log('Error'));
   }
 });
 
@@ -18,11 +18,11 @@ const sayHi = new Promise((resolve, reject) => {
 function fetchData() {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      const data = { message: "Hi" };
+      const data = { message: 'Hi' };
       if (data) {
         resolve(data);
       } else {
-        reject(new Error("Error"));
+        reject(new Error('Error'));
       }
     }, 500);
   });
@@ -30,7 +30,7 @@ function fetchData() {
 
 fetchData()
   .then((data) => {
-    return (data = { message: "Hello" });
+    return (data = { message: 'Hello' });
   })
   .then((data) => {
     console.log(data);
