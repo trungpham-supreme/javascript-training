@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset=utf-8 />
+    <title>JS DOM paragraph style</title>
+  </head>
+  <body>
+    <p id='text'>JavaScript Exercises - w3resource</p>
+    <div>
+      <div>
+        <button id="jsstyle"
+          onclick="js_style()">Style</button>
+      </div>
+
+      <script>
+        function js_style(){
+          document.getElementById('text').style.fontSize = "50px"
+          document.getElementById('text').style.fontFamily = "Times New Roman";
+          document.getElementById('text').style.color  = "Red"
+        }
+    </script>
+    </body>
+  </html>
