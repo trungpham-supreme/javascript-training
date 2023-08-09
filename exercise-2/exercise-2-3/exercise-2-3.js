@@ -1,6 +1,6 @@
 function set_background() {
-  let paragraphs = document.querySelectorAll("p");
+  let paragraphs = document.querySelectorAll('p');
   paragraphs.forEach((paragraph) => {
-    paragraph.style.background = "Blue";
+    paragraph.style.background = 'Blue';
   });
 }

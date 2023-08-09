@@ -1,7 +1,7 @@
 // async makes a function return a Promise
 // await makes a function wait for a Promise
 
-import fetch from "node-fetch";
+import fetch from 'node-fetch';
 
 async function fetchData(url) {
   try {
@@ -13,4 +13,4 @@ async function fetchData(url) {
   }
 }
 
-fetchData("https://jsonplaceholder.typicode.com/users");
+fetchData('https://jsonplaceholder.typicode.com/users');

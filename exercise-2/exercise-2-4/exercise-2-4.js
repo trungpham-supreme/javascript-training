@@ -1,4 +1,4 @@
-function getAttributes(){
+function getAttributes() {
   let result = document.getElementById('w3r');
   alert(
     `
@@ -8,5 +8,5 @@ function getAttributes(){
     target: ${result.target}
     href: ${result.href}
     `
-  )
+  );
 }
