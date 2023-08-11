@@ -73,14 +73,26 @@ function renderTask(table, tasks) {
 }
 
 function addTaskEventListeners() {
+  // Handle click done button
   document.querySelectorAll('.js-task-done').forEach((item) => {
     item.addEventListener('click', finishTask);
+  });
+
+  // Handle click increase pomodoro count button
+  document.querySelectorAll('.js-increase-pomodoro').forEach((item) => {
+    item.addEventListener('click', increasePomodoro);
   });
 }
 
 function finishTask(e) {
   const taskId = e.target.dataset.id;
   tasks[taskId].finished = true;
+  renderTask(pomodoroTableBody, tasks);
+}
+
+function increasePomodoro(e) {
+  const taskId = e.target.dataset.id;
+  ++tasks[taskId].pomodoroDone;
   renderTask(pomodoroTableBody, tasks);
 }
 
