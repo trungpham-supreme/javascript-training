@@ -68,6 +68,20 @@ function renderTask(table, tasks) {
       `
     )
     .join('');
+
+  addTaskEventListeners();
+}
+
+function addTaskEventListeners() {
+  document.querySelectorAll('.js-task-done').forEach((item) => {
+    item.addEventListener('click', finishTask);
+  });
+}
+
+function finishTask(e) {
+  const taskId = e.target.dataset.id;
+  tasks[taskId].finished = true;
+  renderTask(pomodoroTableBody, tasks);
 }
 
 pomodoroForm.addEventListener('submit', addTask);
