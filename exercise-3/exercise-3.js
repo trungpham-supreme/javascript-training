@@ -82,6 +82,11 @@ function addTaskEventListeners() {
   document.querySelectorAll('.js-increase-pomodoro').forEach((item) => {
     item.addEventListener('click', increasePomodoro);
   });
+
+  // Handle click delete button
+  document.querySelectorAll('.js-delete-task').forEach((item) => {
+    item.addEventListener('click', deleteTask);
+  });
 }
 
 function finishTask(e) {
@@ -93,6 +98,12 @@ function finishTask(e) {
 function increasePomodoro(e) {
   const taskId = e.target.dataset.id;
   ++tasks[taskId].pomodoroDone;
+  renderTask(pomodoroTableBody, tasks);
+}
+
+function deleteTask(e) {
+  const taskId = e.target.dataset.id;
+  tasks.splice(taskId, 1);
   renderTask(pomodoroTableBody, tasks);
 }
 
