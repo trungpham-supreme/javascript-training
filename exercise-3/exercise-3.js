@@ -97,6 +97,9 @@ function finishTask(e) {
 
 function increasePomodoro(e) {
   const taskId = e.target.dataset.id;
+
+  // Check pomodori done against plan
+  checkPomodoriDone(tasks[taskId].pomodoroDone, tasks[taskId].pomodoroCount);
   ++tasks[taskId].pomodoroDone;
   renderTask(pomodoroTableBody, tasks);
 }
@@ -105,6 +108,12 @@ function deleteTask(e) {
   const taskId = e.target.dataset.id;
   tasks.splice(taskId, 1);
   renderTask(pomodoroTableBody, tasks);
+}
+
+function checkPomodoriDone(taskDone, taskPlan) {
+  if (taskDone >= taskPlan) {
+    throw alert('All pomodori of plan is done');
+  }
 }
 
 pomodoroForm.addEventListener('submit', addTask);
