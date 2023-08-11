@@ -1,0 +1,23 @@
+.container {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 50vw;
+}
+
+.js-add-task {
+  position: fixed;
+  bottom: 0;
+  width: 50vw;
+  align-items: center;
+  padding: 50px;
+  background-color: grey;
+}
+
+td,
+th {
+  border: 1px solid #dddddd;
+  text-align: center;
+  padding: 10px;
+}
