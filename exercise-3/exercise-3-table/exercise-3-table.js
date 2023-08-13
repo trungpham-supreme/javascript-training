@@ -2,7 +2,7 @@ let tasks = [];
 const pomodoroForm = document.querySelector('.js-add-task');
 const pomodoroTableBody = document.querySelector('.js-task-table-body');
 
-const addTask = function (event) {
+function addTask(event) {
   // Prevent default action
   event.preventDefault();
 
@@ -26,21 +26,21 @@ const addTask = function (event) {
 
   // Render data table
   renderTask(pomodoroTableBody, tasks);
-};
+}
 
 function validateForm(name, count) {
   let regex = /^[a-zA-Z0-9\\,\\.\s]/g;
 
   if (!name || !count) {
-    throw alert('Please enter full information');
+    throw new Error('Please enter full information');
   }
 
   if (!name.match(regex)) {
-    throw alert('Name task must be a string');
+    throw new Error('Name task must be a string');
   }
 
   if (isNaN(parseInt(count))) {
-    throw alert('Pomodoro count must be a number');
+    throw new Error('Pomodoro count must be a number');
   }
 }
 
@@ -68,45 +68,40 @@ function renderTask(table, tasks) {
       `
     )
     .join('');
-
-  addTaskEventListeners();
 }
 
-function addTaskEventListeners() {
-  // Handle click done button
-  document.querySelectorAll('.js-task-done').forEach((item) => {
-    item.addEventListener('click', finishTask);
-  });
-
-  // Handle click increase pomodoro count button
-  document.querySelectorAll('.js-increase-pomodoro').forEach((item) => {
-    item.addEventListener('click', increasePomodoro);
-  });
-
-  // Handle click delete button
-  document.querySelectorAll('.js-delete-task').forEach((item) => {
-    item.addEventListener('click', deleteTask);
-  });
-}
-
-function finishTask(e) {
-  const taskId = e.target.dataset.id;
+// Handle done button
+function finishTask(tasks, taskId) {
   tasks[taskId].finished = true;
-  renderTask(pomodoroTableBody, tasks);
 }
 
-function increasePomodoro(e) {
-  const taskId = e.target.dataset.id;
-
+// Handle increase pomodoro count button
+function increasePomodoro(tasks, taskId) {
   // Check pomodori done against plan
   checkPomodoriDone(tasks[taskId].pomodoroDone, tasks[taskId].pomodoroCount);
   ++tasks[taskId].pomodoroDone;
-  renderTask(pomodoroTableBody, tasks);
 }
 
-function deleteTask(e) {
-  const taskId = e.target.dataset.id;
+// Handle delete button
+function deleteTask(tasks, taskId) {
   tasks.splice(taskId, 1);
+}
+
+function handleClickButtonTask(event) {
+  const target = event.target.className;
+  const taskId = event.target.dataset.id;
+  const doneTaskClass = 'js-task-done';
+  const increasePomodoroClass = 'js-increase-pomodoro';
+  const deleteTaskClass = 'js-delete-task';
+
+  doneTaskClass === target
+    ? finishTask(tasks, taskId)
+    : increasePomodoroClass === target
+    ? increasePomodoro(tasks, taskId)
+    : deleteTaskClass === target
+    ? deleteTask(tasks, taskId)
+    : null;
+
   renderTask(pomodoroTableBody, tasks);
 }
 
@@ -117,3 +112,4 @@ function checkPomodoriDone(taskDone, taskPlan) {
 }
 
 pomodoroForm.addEventListener('submit', addTask);
+pomodoroTableBody.addEventListener('click', handleClickButtonTask);
