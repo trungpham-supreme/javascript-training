@@ -11,7 +11,12 @@ function addTask(event) {
   const pomodoroCount = document.querySelector('.js-pomodoro-count').value;
 
   // Validate input
-  validateForm(taskName, pomodoroCount);
+  try {
+    validateForm(taskName, pomodoroCount);
+  } catch (err) {
+    displayError(err);
+    return;
+  }
 
   // Push input task to task list
   tasks.push({
@@ -28,23 +33,10 @@ function addTask(event) {
   renderTask(pomodoroTableBody, tasks);
 }
 
-function validateForm(name, count) {
-  let regex = /^[a-zA-Z0-9\\,\\.\s]/g;
-
-  if (!name || !count) {
-    throw new Error('Please enter full information');
-  }
-
-  if (!name.match(regex)) {
-    throw new Error('Name task must be a string');
-  }
-
-  if (isNaN(parseInt(count))) {
-    throw new Error('Pomodoro count must be a number');
-  }
-}
-
 function renderTask(table, tasks) {
+  // Clear error
+  clearError();
+
   // Set HTML content
   table.innerHTML = tasks
     .map(
@@ -73,18 +65,26 @@ function renderTask(table, tasks) {
 // Handle done button
 function finishTask(tasks, taskId) {
   tasks[taskId].finished = true;
+  renderTask(pomodoroTableBody, tasks);
 }
 
 // Handle increase pomodoro count button
 function increasePomodoro(tasks, taskId) {
   // Check pomodori done against plan
-  checkPomodoriDone(tasks[taskId].pomodoroDone, tasks[taskId].pomodoroCount);
-  ++tasks[taskId].pomodoroDone;
+  try {
+    checkPomodoriDone(tasks[taskId].pomodoroDone, tasks[taskId].pomodoroCount);
+    ++tasks[taskId].pomodoroDone;
+    renderTask(pomodoroTableBody, tasks);
+  } catch (err) {
+    displayError(err);
+    return;
+  }
 }
 
 // Handle delete button
 function deleteTask(tasks, taskId) {
   tasks.splice(taskId, 1);
+  renderTask(pomodoroTableBody, tasks);
 }
 
 function handleClickButtonTask(event) {
@@ -101,14 +101,38 @@ function handleClickButtonTask(event) {
     : deleteTaskClass === target
     ? deleteTask(tasks, taskId)
     : null;
-
-  renderTask(pomodoroTableBody, tasks);
 }
 
 function checkPomodoriDone(taskDone, taskPlan) {
   if (taskDone >= taskPlan) {
-    throw alert('All pomodori of plan is done');
+    throw new Error('All pomodori of plan is done');
   }
+}
+
+function validateForm(name, count) {
+  let regex = /^[a-zA-Z0-9\\,\\.\s]/g;
+
+  if (!name || !count) {
+    throw new Error('Please enter full information');
+  }
+
+  if (!name.match(regex)) {
+    throw new Error('Name task must be a string');
+  }
+
+  if (isNaN(parseInt(count))) {
+    throw new Error('Pomodoro count must be a number');
+  }
+}
+
+function displayError(message) {
+  const error = document.getElementById('error');
+  error.textContent = message;
+}
+
+function clearError() {
+  const error = document.querySelector('.error');
+  error.innerHTML = '';
 }
 
 pomodoroForm.addEventListener('submit', addTask);
