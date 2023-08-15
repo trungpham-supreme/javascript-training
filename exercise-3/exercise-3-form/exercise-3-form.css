@@ -17,3 +17,9 @@
   display: block;
   color: red;
 }
+
+.user-info {
+  width: 50vw;
+  margin: 50px auto;
+  display: none;
+}
