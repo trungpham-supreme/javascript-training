@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="./exercise-3-form.css">
+  </head>
+  <body>
+    <form class="signup-form">
+      <h2>Sign Up Page</h2>
+      <div class="form-item">
+        <span id="emailError" class="error"></span>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email">
+      </div>
+
+      <div class="form-item">
+        <span id="userNameError" class="error"></span>
+        <label for>Username</label>
+        <input type="text" id="userName" name="username">
+      </div>
+
+      <div class="form-item">
+        <span id="passwordError" class="error"></span>
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password">
+      </div>
+
+      <div class="form-item">
+        <span id="confirmPasswordError" class="error" style="display: block;"></span>
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" name="confirmPassword">
+      </div>
+
+      <div class="form-item btn-group">
+        <input type="submit" value="Submit">
+        <input type="reset" value="Reset">
+      </div>
+    </form>
+    <script src="./exercise-3-form.js"></script>
+  </body>
+</html>
