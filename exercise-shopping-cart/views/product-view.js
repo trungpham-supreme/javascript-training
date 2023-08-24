@@ -9,7 +9,14 @@ class ProductView extends Observer {
     this.product.innerHTML = this.renderProducts(
       productController.model.products
     );
+    this.product.addEventListener('click', cartController);
+    this.product.addEventListener('click', productController);
     this.productController.model.addObserver(this);
+    this.cartController.model.addObserver(this);
+  }
+
+  update(model) {
+    this.product.innerHTML = this.renderProducts(model.products);
   }
 
   // Loop and render product
@@ -18,15 +25,15 @@ class ProductView extends Observer {
       .map(
         (product, index) =>
           `
-            <tr>
-            <td class="name">${product.name}</td>
-            <td class="price">${product.price}</td>
-            <td class="quantity">${product.quantity}</td>
-            <td class="action">
-            <button class="add-button" data-id="${index}">Add</button>
-            </td>
-            </tr>
-          `
+    <tr>
+    <td class="name">${product.name}</td>
+    <td class="price">${product.price}</td>
+    <td class="quantity">${product.quantity}</td>
+    <td class="action">
+    <button class="add-button" data-id="${index}">Add</button>
+    </td>
+    </tr>
+    `
       )
       .join('');
   }
