@@ -12,6 +12,15 @@ class ProductModel extends Observable {
     ];
   }
 
+  decreaseProduct(index) {
+    let productQuantity = this.products[parseInt(index)].quantity;
+    if (productQuantity > 0) {
+      this.products[parseInt(index)].quantity -= 1;
+    } else {
+      alert('The product is out of stock!');
+    }
+  }
+
   getProducts() {
     return this.products;
   }

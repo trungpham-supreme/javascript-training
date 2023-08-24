@@ -1,4 +1,4 @@
-class ProductController {
+class CartController {
   constructor(model) {
     this.model = model;
   }
@@ -9,7 +9,6 @@ class ProductController {
     switch (event.type) {
       case 'click':
         this.clickHandler(event.target);
-        break;
       default:
         console.log(event.target);
     }
@@ -17,9 +16,9 @@ class ProductController {
 
   // Change the model
   clickHandler(target) {
-    this.model.decreaseProduct(target.dataset.id);
+    this.model.addProductToCart(target);
     this.model.notify(this.model);
   }
 }
 
-export { ProductController };
+export { CartController };
