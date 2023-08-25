@@ -21,6 +21,7 @@ class ProductView extends Observer {
 
   // Loop and render product
   renderProducts(products) {
+    document.querySelector('.detail').style.display = 'none';
     return products
       .map(
         (product, index) =>
