@@ -24,6 +24,7 @@ class CartModel extends Observable {
         };
         this.cartItems.push(newItem);
       }
+      localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
     }
   }
 }
