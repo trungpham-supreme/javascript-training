@@ -1,22 +1,14 @@
 import Observer from './observer.js';
 
 class ProductView extends Observer {
-  constructor(productController, cartController) {
+  constructor(controller) {
     super();
-    this.productController = productController;
-    this.cartController = cartController;
+    this.controller = controller;
     this.product = document.getElementById('products');
     this.product.innerHTML = this.renderProducts(
-      productController.model.products
+      controller.model.getProducts()
     );
-    this.product.addEventListener('click', cartController);
-    this.product.addEventListener('click', productController);
-    this.productController.model.addObserver(this);
-    this.cartController.model.addObserver(this);
-  }
-
-  update(model) {
-    this.product.innerHTML = this.renderProducts(model.products);
+    this.controller.model.addObserver(this);
   }
 
   // Loop and render product
@@ -28,7 +20,6 @@ class ProductView extends Observer {
     <tr>
     <td class="name">${product.name}</td>
     <td class="price">${product.price}</td>
-    <td class="quantity">${product.quantity}</td>
     <td class="action">
     <button class="add-button" data-id="${index}">Add</button>
     </td>
