@@ -1,11 +1,11 @@
 class ProductData {
   constructor() {
     this.products = [
-      { id: 0, name: 'coffee', price: 1000, quantity: 0 },
-      { id: 1, name: 'boba tea', price: 1500, quantity: 0 },
-      { id: 2, name: 'milk tea', price: 1200, quantity: 0 },
-      { id: 3, name: 'smoothie', price: 2000, quantity: 0 },
-      { id: 4, name: 'matcha', price: 1000, quantity: 0 },
+      { id: 0, name: 'coffee', price: 1000 },
+      { id: 1, name: 'boba tea', price: 1500 },
+      { id: 2, name: 'milk tea', price: 1200 },
+      { id: 3, name: 'smoothie', price: 2000 },
+      { id: 4, name: 'matcha', price: 1000 },
     ];
   }
 
