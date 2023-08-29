@@ -16,6 +16,7 @@ class ProductModel extends Observable {
     let productQuantity = this.products[parseInt(index)].quantity;
     if (productQuantity > 0) {
       this.products[parseInt(index)].quantity -= 1;
+      localStorage.setItem('products', JSON.stringify(this.products));
     } else {
       alert('The product is out of stock!');
     }
