@@ -7,10 +7,15 @@ class ProductData {
       { id: 3, name: 'smoothie', price: 2000 },
       { id: 4, name: 'matcha', price: 1000 },
     ];
+    this.cartItems = [];
   }
 
   saveProductsToStorage() {
     localStorage.setItem('products', JSON.stringify(this.products));
+  }
+
+  saveCartItemsToStorage() {
+    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
   }
 
   getAllProducts() {
@@ -23,3 +28,4 @@ const productData = new ProductData();
 const allProducts = productData.getAllProducts();
 
 productData.saveProductsToStorage();
+productData.saveCartItemsToStorage();
