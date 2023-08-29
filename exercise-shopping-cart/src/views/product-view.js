@@ -20,6 +20,7 @@ class ProductView extends Observer {
     <tr>
     <td class="name">${product.name}</td>
     <td class="price">${product.price}</td>
+    <td class="quantity"><input type="number" id="quantity-${index}" class="quantity-input" name="quantity" min="1" max="100" value="1"></td>
     <td class="action">
     <button class="add-button" data-id="${index}">Add</button>
     </td>
