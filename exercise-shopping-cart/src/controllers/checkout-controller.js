@@ -12,6 +12,11 @@ class CheckoutController {
     this.model.increaseQuantityProductFromCart(e.target.dataset.id);
     this.model.notify(this.model);
   }
+
+  decreaseQuantityClickHandler(e) {
+    this.model.decreaseQuantityProductFromCart(e.target.dataset.id);
+    this.model.notify(this.model);
+  }
 }
 
 export { CheckoutController };
