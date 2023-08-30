@@ -1,0 +1,12 @@
+class CheckoutController {
+  constructor(model) {
+    this.model = model;
+  }
+
+  removeClickHandler(e) {
+    this.model.removeProductFromCart(e.target.dataset.id);
+    this.model.notify(this.model);
+  }
+}
+
+export { CheckoutController };
