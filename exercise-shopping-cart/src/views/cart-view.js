@@ -5,8 +5,12 @@ class CartView extends Observer {
     super();
     this.controller = controller;
     this.totalItemElement = document.querySelector('.total-items');
-    this.product = document.getElementById('products');
-    this.product.addEventListener('click', controller);
+    this.addButtonElement = document.querySelectorAll('.add-button');
+
+    this.addButtonElement.forEach((button) => {
+      button.addEventListener('click', controller);
+    });
+
     this.controller.model.addObserver(this);
   }
 
