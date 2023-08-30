@@ -3,18 +3,18 @@ class CheckoutController {
     this.model = model;
   }
 
-  removeClickHandler(e) {
-    this.model.removeProductFromCart(e.target.dataset.id);
+  removeClickHandler(index) {
+    this.model.removeProductFromCart(index);
     this.model.notify(this.model);
   }
 
-  increaseQuantityClickHandler(e) {
-    this.model.increaseQuantityProductFromCart(e.target.dataset.id);
+  increaseQuantityClickHandler(index) {
+    this.model.increaseQuantityProductFromCart(index);
     this.model.notify(this.model);
   }
 
-  decreaseQuantityClickHandler(e) {
-    this.model.decreaseQuantityProductFromCart(e.target.dataset.id);
+  decreaseQuantityClickHandler(index) {
+    this.model.decreaseQuantityProductFromCart(index);
     this.model.notify(this.model);
   }
 }

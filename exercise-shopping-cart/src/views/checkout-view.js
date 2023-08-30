@@ -5,8 +5,6 @@ class CheckoutView extends Observer {
     super();
 
     this.controller = controller;
-
-    // Get DOM elements for cart-related information
     this.cartCheckout = document.querySelector('.cart-items-checkout');
     this.totalItemCheckoutElement = document.querySelector(
       '.total-items-checkout'
@@ -15,33 +13,26 @@ class CheckoutView extends Observer {
       '.total-price-checkout'
     );
 
-    // Render the checkout view
+    this.controller.model.addObserver(this);
+
     this.renderCheckout();
 
-    this.removeButton = document.querySelectorAll('.remove-product');
-    this.removeButton.forEach((button) => {
-      button.addEventListener('click', (e) => {
-        controller.removeClickHandler(e);
-      });
-    });
+    // Attach event listener for delegated click events on the cartCheckout element
+    this.cartCheckout.addEventListener('click', (event) => {
+      const target = event.target;
+      const index = target.getAttribute('data-id');
 
-    this.increaseQuantityButtonElement =
-      document.querySelectorAll('.increase-quantity');
-    this.increaseQuantityButtonElement.forEach((button) => {
-      button.addEventListener('click', (e) => {
-        controller.increaseQuantityClickHandler(e);
-      });
+      // Determine the action based on the clicked element's classs
+      if (target.classList.contains('remove-product')) {
+        this.controller.removeClickHandler(index);
+      }
+      if (target.classList.contains('increase-quantity')) {
+        this.controller.increaseQuantityClickHandler(index);
+      }
+      if (target.classList.contains('decrease-quantity')) {
+        this.controller.decreaseQuantityClickHandler(index);
+      }
     });
-
-    this.decreaseQuantityButtonElement =
-      document.querySelectorAll('.decrease-quantity');
-    this.decreaseQuantityButtonElement.forEach((button) => {
-      button.addEventListener('click', (e) => {
-        controller.decreaseQuantityClickHandler(e);
-      });
-    });
-
-    this.controller.model.addObserver(this);
   }
 
   // Render a single cart item in the checkout view
@@ -88,7 +79,6 @@ class CheckoutView extends Observer {
 
   update() {
     this.renderCheckout();
-    location.reload();
   }
 }
 
