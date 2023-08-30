@@ -63,6 +63,18 @@ class CartModel extends Observable {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
 
+  // Method to increase the quantity of a product in the cart.
+  decreaseQuantityProductFromCart(target) {
+    let indexProduct = parseInt(target);
+    let cartItems = this.getProductsInCart();
+    if (cartItems[indexProduct].quantity > 1) {
+      --cartItems[indexProduct].quantity;
+    }
+
+    // Update local storage
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }
+
   // Method to retrieve cart items from local storage.
   getProductsInCart() {
     return JSON.parse(localStorage.getItem('cartItems')) || [];
