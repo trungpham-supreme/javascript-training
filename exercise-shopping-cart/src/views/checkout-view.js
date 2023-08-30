@@ -25,6 +25,14 @@ class CheckoutView extends Observer {
       });
     });
 
+    this.increaseQuantityButtonElement =
+      document.querySelectorAll('.increase-quantity');
+    this.increaseQuantityButtonElement.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        controller.increaseQuantityClickHandler(e);
+      });
+    });
+
     this.controller.model.addObserver(this);
   }
 
@@ -37,7 +45,7 @@ class CheckoutView extends Observer {
       <span class="cart-price-checkout">Price: $${item.price} * </span>
       <button class="decrease-quantity">-</button>
       <span class="cart-quantity-checkout">${item.quantity}</span>
-      <button class="increase-quantity">+</button>
+      <button class="increase-quantity" data-id="${index}">+</button>
       <button class="remove-product" data-id="${index}">remove</button>
     `;
     return cartItemCheckoutElement;
