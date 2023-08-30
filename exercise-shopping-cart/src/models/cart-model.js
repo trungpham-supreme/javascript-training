@@ -43,13 +43,23 @@ class CartModel extends Observable {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
 
+  // Method to remove a product from the cart.
   removeProductFromCart(target) {
-    // Filter out the removed item from the cartItems array
-    let indexToRemove = parseInt[target];
+    let indexToRemove = parseInt(target);
     let cartItems = this.getProductsInCart();
     cartItems.splice(indexToRemove, 1);
 
-    // Update local storage and re-render the checkout view
+    // Update local storage
+    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+  }
+
+  // Method to increase the quantity of a product in the cart.
+  increaseQuantityProductFromCart(target) {
+    let indexProduct = parseInt(target);
+    let cartItems = this.getProductsInCart();
+    ++cartItems[indexProduct].quantity;
+
+    // Update local storage
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
 
@@ -58,6 +68,7 @@ class CartModel extends Observable {
     return JSON.parse(localStorage.getItem('cartItems')) || [];
   }
 
+  // Method to retrieve products from local storage.
   getProducts() {
     return JSON.parse(localStorage.getItem('products')) || [];
   }
