@@ -40,6 +40,11 @@ class CartModel extends Observable {
       cartItems.push(newItem);
     }
 
+    this.updateCart(cartItems);
+  }
+
+  // Method to modify the cart and update local storage.
+  updateCart(cartItems) {
     localStorage.setItem('cartItems', JSON.stringify(cartItems));
   }
 
@@ -50,7 +55,7 @@ class CartModel extends Observable {
     cartItems.splice(indexToRemove, 1);
 
     // Update local storage
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    this.updateCart(cartItems);
   }
 
   // Method to increase the quantity of a product in the cart.
@@ -60,7 +65,7 @@ class CartModel extends Observable {
     ++cartItems[indexProduct].quantity;
 
     // Update local storage
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    this.updateCart(cartItems);
   }
 
   // Method to increase the quantity of a product in the cart.
@@ -72,7 +77,7 @@ class CartModel extends Observable {
     }
 
     // Update local storage
-    localStorage.setItem('cartItems', JSON.stringify(cartItems));
+    this.updateCart(cartItems);
   }
 
   // Method to retrieve cart items from local storage.
