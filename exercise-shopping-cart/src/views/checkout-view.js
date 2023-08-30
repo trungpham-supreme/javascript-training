@@ -15,75 +15,64 @@ class CheckoutView extends Observer {
       '.total-price-checkout'
     );
 
-    // Retrieve cart items data from localStorage
-    this.cartItems = JSON.parse(localStorage.getItem('cartItems')) || [];
-    this.products = JSON.parse(localStorage.getItem('products')) || [];
-
     // Render the checkout view
     this.renderCheckout();
+
+    this.removeButton = document.querySelectorAll('.remove-product');
+    this.removeButton.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        controller.removeClickHandler(e);
+      });
+    });
+
+    this.controller.model.addObserver(this);
   }
 
-  renderCartItem(item) {
+  // Render a single cart item in the checkout view
+  renderCartItem(item, index) {
     const cartItemCheckoutElement = document.createElement('div');
     cartItemCheckoutElement.classList.add('cart-item-checkout');
     cartItemCheckoutElement.innerHTML = `
-      <span class="cart-name-checkout">${item.name}</span>
-      <span class="cart-price-checkout">${item.price}</span>
+      <span class="cart-name-checkout">Name: ${item.name} * </span>
+      <span class="cart-price-checkout">Price: $${item.price} * </span>
       <button class="decrease-quantity">-</button>
       <span class="cart-quantity-checkout">${item.quantity}</span>
       <button class="increase-quantity">+</button>
-      <button class="remove-product">remove</button>
+      <button class="remove-product" data-id="${index}">remove</button>
     `;
     return cartItemCheckoutElement;
   }
 
-  // Render the entire checkout view
+  // Render the entire checkout view with cart items
   renderCheckout() {
     this.cartCheckout.innerHTML = '';
 
-    // Loop through each cart item and render it
-    this.cartItems.forEach((item) => {
-      const cartItemCheckoutElement = this.renderCartItem(item);
-      this.cartCheckout.appendChild(cartItemCheckoutElement);
+    const cartItems = this.controller.model.getProductsInCart();
 
-      const removeButton =
-        cartItemCheckoutElement.querySelector('.remove-product');
-      removeButton.addEventListener('click', () =>
-        this.removeProductFromCart(item)
-      );
+    // Loop through each cart item and render it
+    cartItems.forEach((item, index) => {
+      const cartItemCheckoutElement = this.renderCartItem(item, index);
+      this.cartCheckout.appendChild(cartItemCheckoutElement);
     });
 
     // Calculate and display the total number of items and the total price
-    const totalItems = this.cartItems.reduce(
+    const totalItems = cartItems.reduce(
       (total, item) => total + item.quantity,
       0
     );
-    const totalPrice = this.cartItems.reduce(
+    const totalPrice = cartItems.reduce(
       (total, item) => total + item.price * item.quantity,
       0
     );
 
+    // Update the total item and total price elements
     this.totalItemCheckoutElement.innerHTML = totalItems;
     this.totalPriceCheckoutElement.textContent = `$${totalPrice}`;
   }
 
-  // Remove a product from the cart
-  removeProductFromCart(itemToRemove) {
-    // Filter out the removed item from the cartItems array
-    this.cartItems = this.cartItems.filter((item) => item !== itemToRemove);
-
-    // Update the corresponding product quantity in the products array
-    const productToUpdate = this.products.find(
-      (product) => product.id === itemToRemove.id
-    );
-    if (productToUpdate) {
-      productToUpdate.quantity += itemToRemove.quantity;
-      localStorage.setItem('products', JSON.stringify(this.products));
-    }
-
-    // Update local storage and re-render the checkout view
-    localStorage.setItem('cartItems', JSON.stringify(this.cartItems));
+  update() {
     this.renderCheckout();
+    location.reload();
   }
 }
 
