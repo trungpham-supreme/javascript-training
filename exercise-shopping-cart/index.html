@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/style.css">
+  </head>
+  <body>
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody class="product-list" id="products">
+        </tbody>
+      </table>
+      <div class="cart">
+        <a class="checkout-button" href="checkout.html"><img
+            src="./asserts/images/shopping-cart.png" alt="Shopping cart">
+        </a>
+        <span class="total-items"></span>
+      </div>
+    </div>
+  </body>
+  <script type="module" src="./src/services/product-service.js"></script>
+  <script type="module" src="./src/services/cart-service.js"></script>
+  <script type="module" src="./src/services/local-storage-service.js"></script>
+</html>
